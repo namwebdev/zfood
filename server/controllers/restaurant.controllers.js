@@ -12,6 +12,20 @@ const getRestaurants = async (req, res) => {
   }
 };
 
+const getRestaurantDetails = async (req, res) => {
+  const id = req.params.id;
+  try {
+    const data = await restaurant.findOne({ where: { id } });
+    if (restaurant) {
+      res.status(200).json({ data });
+      return;
+    }
+    res.status(404).json({ message: "Restaurant not found" });
+  } catch (err) {
+    res.status(500).json({ message: err });
+  }
+};
+
 const createRestaurants = async (req, res) => {
   try {
     if (Array.isArray(req.body)) {
@@ -39,4 +53,4 @@ const createRestaurants = async (req, res) => {
   }
 };
 
-module.exports = { getRestaurants, createRestaurants };
+module.exports = { getRestaurants, getRestaurantDetails, createRestaurants };
