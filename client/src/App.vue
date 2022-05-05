@@ -1,8 +1,8 @@
 <template>
   <AppHeader />
-  <div class="py-10">
+  <section class="py-10">
     <RouterView />
-  </div>
+  </section>
   <AppFooter />
 </template>
 

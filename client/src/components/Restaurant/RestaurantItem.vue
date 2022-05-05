@@ -1,5 +1,8 @@
 <template>
-  <div class="h-72 bg-white rounded-lg overflow-hidden relative">
+  <router-link
+    :to="{ path: `/restaurants/${restaurant.id}` }"
+    class="h-72 bg-white rounded-lg overflow-hidden relative"
+  >
     <div>
       <img :src="restaurant.image" />
     </div>
@@ -8,7 +11,7 @@
       <div class="text-sm">{{ restaurant.address }}</div>
     </div>
     <div class="px-5 pt-2 text-xxs text-gray">{{ restaurant.category }}</div>
-  </div>
+  </router-link>
 </template>
 
 <script setup>

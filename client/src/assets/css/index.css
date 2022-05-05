@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 body {
-    background-color: #F8F8F8;
+  background-color: #f8f8f8;
 }
 
-.container {
-    @apply max-w-7xl m-auto
+svg {
+  fill: currentColor;
 }

@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/Home.vue";
+import RestaurantDetailsView from "../views/RestaurantDetails.vue";
 
 const router = createRouter({
   history: createWebHistory(),
@@ -8,6 +9,11 @@ const router = createRouter({
       path: "/",
       name: "home",
       component: HomeView,
+    },
+    {
+      path: "/restaurants/:id",
+      name: "restaurant-details",
+      component: RestaurantDetailsView,
     },
   ],
 });

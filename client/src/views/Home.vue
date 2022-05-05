@@ -1,8 +1,24 @@
+<template>
+  <AppContainer>
+    <div v-if="!loading" class="list-restaurant" id="list-restaurant">
+      <RestaurantItem
+        v-for="restaurant in restaurants"
+        :key="restaurant.id"
+        :restaurant="restaurant"
+      />
+    </div>
+    <div v-if="loading" class="list-shot">
+      <RestaurantLoading v-for="(res, index) in 4" :key="index" />
+    </div>
+  </AppContainer>
+</template>
+
 <script setup>
 import { ref } from "vue";
 import RestaurantItem from "@/components/Restaurant/RestaurantItem.vue";
 import RestaurantLoading from "../components/Restaurant/RestaurantLoading.vue";
 import restaurantsApi from "../services/factory/restaurants.js";
+import AppContainer from "../components/App/AppContainer.vue";
 
 const restaurants = ref([]);
 const loading = ref(true);
@@ -16,21 +32,6 @@ async function fetchRestaurants() {
   loading.value = false;
 }
 </script>
-
-<template>
-  <div class="container">
-    <div v-if="!loading" class="list-restaurant" id="list-restaurant">
-      <RestaurantItem
-        v-for="restaurant in restaurants"
-        :key="restaurant.id"
-        :restaurant="restaurant"
-      />
-    </div>
-    <div v-if="loading" class="list-shot">
-      <RestaurantLoading v-for="(res, index) in 4" :key="index" />
-    </div>
-  </div>
-</template>
 
 <style>
 .list-restaurant {
