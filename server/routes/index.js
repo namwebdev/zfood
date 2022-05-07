@@ -4,8 +4,9 @@ const rootRouter = express.Router();
 const { restaurantRouter } = require("./restaurant.routes");
 const { dishRouter } = require("./dish.routes");
 const { orderRouter } = require("./order.routes");
-const { register, login } = require("../controllers/auth.controllers");
+const { register, login, getUser } = require("../controllers/auth.controllers");
 const { authenticate } = require("../middlewares/auth/authenticate");
+const bodyParser = require("body-parser");
 
 rootRouter.get("/", (req, res) => res.send("API Version 1"));
 
@@ -15,6 +16,7 @@ rootRouter.use("/order", authenticate, orderRouter);
 
 // auth routes
 rootRouter.post("/register", register);
-rootRouter.post("/login", login);
+rootRouter.get("/login", login);
+rootRouter.get("/user", authenticate, getUser);
 
 module.exports = { rootRouter };

@@ -26,7 +26,15 @@ const register = async (req, res, next) => {
 };
 
 const login = async (req, res) => {
-  const { phone, password } = req.body;
+  const { phone, password } = req.query;
+  if (!phone) {
+    res.status(400).json({ message: "Phone is required" });
+    return;
+  }
+  if (!password) {
+    res.status(400).json({ message: "Password is required" });
+    return;
+  }
   try {
     const user = await userModel.findOne({ where: { phone } });
     if (user) {
@@ -43,4 +51,20 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { register, login };
+const getUser = async (req, res) => {
+  const { user_id } = req;
+  try {
+    const user = await userModel.findOne({ where: { id: user_id } });
+    if (user) {
+      let { password, ...userInfo } = user?.dataValues;
+      res.status(200).json({ data: userInfo });
+      return;
+    }
+    res.status(404).json({ message: "User not found" });
+  } catch (e) {
+    console.error(e);
+    res.status(500).json({ message: "Something went wrong" });
+  }
+};
+
+module.exports = { register, login, getUser };
