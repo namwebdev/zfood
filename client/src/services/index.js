@@ -10,7 +10,8 @@ const axiosClient = axios.create({
 });
 
 axiosClient.interceptors.request.use(async (config) => {
-  // Handle token here ...
+  const token = localStorage.getItem("token");
+  if (token) config.headers.token = token;
   return config;
 });
 
@@ -20,6 +21,7 @@ axiosClient.interceptors.response.use(
     return response;
   },
   (error) => {
+    if (error.response.status === 401) localStorage.removeItem("token");
     throw error;
   }
 );

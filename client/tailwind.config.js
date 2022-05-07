@@ -12,9 +12,15 @@ module.exports = {
     },
     colors: {
       transparent: "transparent",
-      primary: "#EE4D2D",
+      primary: {
+        700: "rgba(238, 77, 45, 0.29)",
+        DEFAULT: "#EE4D2D",
+      },
       gray: "#959595",
-      "light-gray": "#EBEBEB",
+      "light-gray": {
+        800: "rgba(234, 232, 232, 0.60)",
+        DEFAULT: "#EBEBEB",
+      },
       black: "#252525",
       white: colors.white,
       red: colors.red,

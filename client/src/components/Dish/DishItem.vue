@@ -23,10 +23,10 @@
 </template>
 
 <script setup>
-import { computed, defineProps, toRefs } from "vue";
+import { computed, defineProps, toRefs, defineEmits } from "vue";
 import AddToCartIcon from "../Icons/AddToCartIcon.vue";
 import InCartIcon from "../Icons/InCartIcon.vue";
-import { useCartStore } from "../../stores/";
+import { useCartStore, useAuthStore } from "../../stores/";
 import { useRoute } from "vue-router";
 
 const props = defineProps({
@@ -35,15 +35,26 @@ const props = defineProps({
   },
 });
 
+const emit = defineEmits(["onNeedLogin", "onConfirmClearCart"]);
+
 const { dish } = toRefs(props);
 const route = useRoute();
 const cartStore = useCartStore();
+const auth = useAuthStore();
 
 const isInCart = computed(() => {
   return cartStore.cart.some((item) => item.id === dish.value.id);
 });
 
 function addToCart() {
+  if (!auth.isLogin) {
+    emit("onNeedLogin");
+    return;
+  }
+  if (cartStore.restauranId != route.params.id && cartStore.cart.length > 0) {
+    emit("onConfirmClearCart", dish.value);
+    return;
+  }
   cartStore.add(dish.value, route.params.id);
 }
 </script>
