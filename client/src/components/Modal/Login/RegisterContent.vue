@@ -17,7 +17,7 @@
       v-model="form.address"
       :error="error.address"
       :errorMessage="errorMessage.address"
-      type="number"
+      type="text"
       placeholder="Địa chỉ"
     >
       <template #prefix><AddressIcon /> </template>
@@ -41,7 +41,7 @@
       v-model="form.password"
       :error="error.password"
       :errorMessage="errorMessage.password"
-      type="number"
+      type="password"
       placeholder="Mật khẩu"
     >
       <template #prefix>
@@ -82,6 +82,7 @@ import PasswordIcon from "../../Icons/PasswordIcon.vue";
 import { useNotificationStore, useModalStore } from "../../../stores";
 import UserIcon from "../../Icons/UserIcon.vue";
 import AddressIcon from "../../Icons/AddressIcon.vue";
+import authApi from "../../../services/factory/auth";
 
 export default {
   components: { Input, PhoneIcon, PasswordIcon, UserIcon, AddressIcon },
@@ -120,21 +121,18 @@ export default {
       if (!isValid) return;
 
       try {
-        const data = true;
+        const data = await authApi.register(form);
         if (data) {
           notify.on({
             type: "success",
-            message: "Đăng kí thành công.<br/>Bạn có đăng nhập ngay",
-            timer: 6000
+            message: "Đăng kí thành công.<br/>Bạn có thể đăng nhập ngay",
+            timer: 6000,
           });
           clear();
           changeContent();
         }
       } catch (e) {
         if (e?.response?.data) {
-          error.incorrect = true;
-          error.phone = true;
-          error.password = true;
           return;
         }
         notify.on({ message: "Xảy ra lỗi" + e });
@@ -162,6 +160,9 @@ export default {
       if (!form.confirmPassword) {
         error.confirmPassword = true;
         errorMessage.confirmPassword = "Vui lòng lại mật khẩu";
+      } else if (form.confirmPassword !== form.password) {
+        error.confirmPassword = true;
+        errorMessage.confirmPassword = "Mật khẩu không khớp";
       }
       if (
         error.name ||

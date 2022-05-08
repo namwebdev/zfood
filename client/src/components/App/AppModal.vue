@@ -21,7 +21,7 @@
           <div
             id="modal"
             data-test="modal"
-            class="bg-white text-black rounded-sm shadow-sm h-auto"
+            class="bg-white text-black rounded-sm shadow-sm h-auto px-8 pt-4 pb-6 w-100"
             :class="className"
             @click.stop=""
           >
@@ -82,7 +82,6 @@ export default {
   },
   emits: ["update:visible", "onOk", "hide"],
   setup(props, { emit }) {
- 
     onBeforeMount(() => {
       window.addEventListener("keyup", onClosePressEscape);
     });

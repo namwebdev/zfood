@@ -100,6 +100,7 @@ export default {
           error.incorrect = true;
           error.phone = true;
           error.password = true;
+          console.log(e.response);
           return;
         }
         notify.on({ message: "Xảy ra lỗi" + e });

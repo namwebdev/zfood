@@ -1,37 +1,29 @@
 <template>
   <div
-    class="
-      w-64
-      rounded-lg
-      shadow-sm
-      mb-4
-      px-6
-      pt-1
-      pb-4
-      text-white
-      cursor-pointer
-      transition
-      duration-200
-      ease-in-out
-    "
+    class="w-64 rounded-lg shadow-sm mb-4 px-6 pt-1 pb-3 text-white cursor-pointer transition duration-200 ease-in-out"
     :class="notiType"
     @click="onClose"
   >
-    <div class="capitalize font-bold">{{ notiType }}</div>
+    <div class="capitalize font-bold">{{ notiTitle }}</div>
     <div class="text-sm" v-html="message"></div>
   </div>
 </template>
 
 <script>
 import { computed } from "vue";
-const types = ["success", "warning", "error"];
-const typeText = ["Thành công", "Cảnh báo", "Lỗi"];
+
+const types = [
+  { type: "success", text: "Thành công" },
+  { type: "warning", text: "Cảnh báo" },
+  { type: "error", text: "Lỗi" },
+];
+
 export default {
   props: {
     type: {
       type: String,
       validator(value) {
-        return types.includes(value);
+        return types.some((type) => type.type === value);
       },
       default: () => "error",
     },
@@ -47,9 +39,15 @@ export default {
   emits: ["close"],
   setup(props, { emit }) {
     const notiType = computed(() => {
-      if (types.includes(props.type)) return props.type;
+      if (types.some((type) => type.type === props.type)) return props.type;
       return "error";
     });
+    const notiTitle = computed(() => {
+      const index = types.findIndex((type) => type.type === props.type);
+      if (index !== -1) return types[index].text;
+      return "Lỗi";
+    });
+
     autoCloseHanlder();
     function autoCloseHanlder() {
       setTimeout(() => onClose(), props.timer);
@@ -57,7 +55,7 @@ export default {
     function onClose() {
       emit("close");
     }
-    return { notiType, onClose };
+    return { notiType, notiTitle, onClose };
   },
 };
 </script>

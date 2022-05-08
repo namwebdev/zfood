@@ -4,7 +4,7 @@ import queryString from "query-string";
 const axiosClient = axios.create({
   baseURL: "http://localhost:5000/v1",
   headers: {
-    "content-type": "application",
+    "content-type": "application/json",
   },
   paramsSerializer: (params) => queryString.stringify(params),
 });
@@ -21,7 +21,7 @@ axiosClient.interceptors.response.use(
     return response;
   },
   (error) => {
-    if (error.response.status === 401) localStorage.removeItem("token");
+    if (error?.response?.status === 401) localStorage.removeItem("token");
     throw error;
   }
 );

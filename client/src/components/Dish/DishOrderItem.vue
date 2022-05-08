@@ -1,10 +1,10 @@
 <template>
-  <div class="flex items-center justify-between w-100">
-    <div>
-      <img :src="dish.image" alt="" />
-      <div>
+  <div class="flex items-center justify-between w-110 mb-3 pb-3 border-b border-light-gray-800">
+    <div class="flex items-center">
+      <img class="w-20 rounded-xs" :src="dish.image" alt="" />
+      <div class="ml-3 font-bold">
         <div>{{ dish.name }}</div>
-        <div class="text-primary font-bold">
+        <div class="text-primary">
           {{ $filter.formatCurrency(dish.price)
           }}<span class="text-xxs align-text-top">đ</span>
         </div>

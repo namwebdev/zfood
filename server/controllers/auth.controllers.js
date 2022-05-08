@@ -5,6 +5,10 @@ const TOKEN_SECRET_KEY = require("../constants");
 
 const register = async (req, res, next) => {
   const { name, address, password, phone } = req.body;
+  if (!phone) {
+    res.status(400).json({ message: "Phone is required" });
+    return;
+  }
   const user = await userModel.findOne({ where: { phone } });
   if (user) {
     res.status(409).json({ message: "Phone already exists" });
@@ -26,7 +30,7 @@ const register = async (req, res, next) => {
 };
 
 const login = async (req, res) => {
-  const { phone, password } = req.query;
+  const { phone, password } = req.body;
   if (!phone) {
     res.status(400).json({ message: "Phone is required" });
     return;

@@ -16,7 +16,7 @@ rootRouter.use("/order", authenticate, orderRouter);
 
 // auth routes
 rootRouter.post("/register", register);
-rootRouter.get("/login", login);
+rootRouter.post("/login", login);
 rootRouter.get("/user", authenticate, getUser);
 
 module.exports = { rootRouter };

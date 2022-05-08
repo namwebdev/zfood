@@ -31,6 +31,7 @@
             v-show="show"
             @click="logout"
             class="duration-100 absolute cursor-pointer hover:bg-primary hover:text-white top-8 text-primary text-xs w-full text-center py-1 bg-white rounded-xs"
+            style="min-width: 80px;"
           >
             Đăng xuất
           </div>
@@ -67,6 +68,7 @@ const userName = computed(() => {
 });
 function logout() {
   auth.logout();
+  cart.clear()
   show.value = false;
 }
 </script>
