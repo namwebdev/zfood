@@ -1,5 +1,4 @@
 const { restaurant, dish } = require("../models");
-const { setPagination } = require("../services/pagination");
 const { Op } = require("sequelize");
 
 const getDishes = async (req, res) => {

@@ -66,7 +66,6 @@ const getUser = async (req, res) => {
     }
     res.status(404).json({ message: "User not found" });
   } catch (e) {
-    console.error(e);
     res.status(500).json({ message: "Something went wrong" });
   }
 };

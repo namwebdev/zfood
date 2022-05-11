@@ -13,7 +13,9 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   dish_order.init(
-    {},
+    {
+      quantity: DataTypes.INTEGER,
+    },
     {
       sequelize,
       modelName: "dish_order",
