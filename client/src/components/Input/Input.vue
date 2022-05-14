@@ -1,26 +1,28 @@
 <template>
-  <div
-    class="border border-light-gray py-2 px-3 w-full rounded-sm shadow-sm font-thin duration-100 shadow-gray-100 hover:shadow-lg flex justify-center items-center"
-    :class="{
-      'border-red-500': error,
-      'outline outline-0 shadow-lg border-primary-700': isFocus,
-    }"
-  >
-    <slot name="prefix"></slot>
-    <input
-      :type="type"
-      :placeholder="placeholder"
-      class="w-full bg-transparent pl-2"
-      @focus="isFocus = true"
-      @blur="isFocus = false"
-      :value="modelValue"
-      @input="updateValue"
-    />
-    <slot name="affix"></slot>
-  </div>
-  <div class="h-4">
-    <div v-show="errorMessage" class="text-red-500 text-xs">
-      {{ errorMessage }}
+  <div>
+    <div
+      class="border border-light-gray py-2 px-3 w-full rounded-sm shadow-sm font-thin duration-100 shadow-gray-100 hover:shadow-lg flex justify-center items-center"
+      :class="{
+        'border-red-500': error,
+        'outline outline-0 shadow-lg border-primary-700': isFocus,
+      }"
+    >
+      <slot name="prefix"></slot>
+      <input
+        :type="type"
+        :placeholder="placeholder"
+        class="w-full bg-transparent pl-2"
+        @focus="isFocus = true"
+        @blur="isFocus = false"
+        :value="modelValue"
+        @input="updateValue"
+      />
+      <slot name="affix"></slot>
+    </div>
+    <div class="h-4 w-full">
+      <div v-show="errorMessage" class="text-red-500 text-xs">
+        {{ errorMessage }}
+      </div>
     </div>
   </div>
 </template>

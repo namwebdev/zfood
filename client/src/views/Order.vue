@@ -1,5 +1,5 @@
 <template>
-  <AppContainer>
+  <AppContainer v-if="isLogin">
     <div class="text-primary font-bold text-xl mb-4">Giỏ hàng</div>
     <!--  -->
     <div v-if="cart.length" class="flex justify-between align-baseline">
@@ -54,6 +54,9 @@
         </div>
       </router-link>
     </div>
+  </AppContainer>
+  <AppContainer v-else>
+    <div class="text-center py-20 text-xl text-primary font-bold">Bạn cần đăng nhập trước khi truy cập vào trang này</div>
   </AppContainer>
   <!--  -->
   <AppModal
@@ -112,6 +115,10 @@ const totalPrice = computed(() => {
   }, 0);
 });
 const router = useRouter();
+
+const isLogin = computed(() => {
+  return auth.isLogin;
+});
 
 const name = computed(() => {
   return auth.user.name;

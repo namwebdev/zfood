@@ -19,6 +19,18 @@ const getUser = async (req, res) => {
 const updateInfo = async (req, res) => {
   const { user_id } = req;
   const { name, address, phone } = req.body;
+  if (name === "") {
+    res.status(400).json({ message: "Name is required" });
+    return;
+  }
+  if (address === "") {
+    res.status(400).json({ message: "Address is required" });
+    return;
+  }
+  if (phone === "") {
+    res.status(400).json({ message: "Phone is required" });
+    return;
+  }
   try {
     const form = {
       ...(name && { name }),
@@ -47,7 +59,7 @@ const changePassword = async (req, res) => {
     const userToFind = await user.findOne({ where: { id: user_id } });
     const isMatchPassword = bcrypt.compareSync(password, userToFind.password);
     if (!isMatchPassword) {
-      res.status(401).json({ message: "Old password is incorrect" });
+      res.status(400).json({ message: "Old password is incorrect" });
       return;
     }
     const salt = bcrypt.genSaltSync(10);
@@ -55,7 +67,6 @@ const changePassword = async (req, res) => {
     await user.update({ password: hashPassword }, { where: { id: user_id } });
     res.status(200).json({ message: "Change password success" });
   } catch (e) {
-    console.log(e);
     res.status(500).json({ message: e });
   }
 };

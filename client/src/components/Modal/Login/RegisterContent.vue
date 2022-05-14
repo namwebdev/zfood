@@ -1,65 +1,67 @@
 <template>
-  <div class="mb-2">
+  <form>
+    <div class="mb-2">
+      <Input
+        v-model="form.name"
+        :error="error.name"
+        :errorMessage="errorMessage.name"
+        type="text"
+        placeholder="Họ và tên"
+      >
+        <template #prefix>
+          <UserIcon />
+        </template>
+      </Input>
+    </div>
+    <div class="mb-2">
+      <Input
+        v-model="form.address"
+        :error="error.address"
+        :errorMessage="errorMessage.address"
+        type="text"
+        placeholder="Địa chỉ"
+      >
+        <template #prefix><AddressIcon /> </template>
+      </Input>
+    </div>
+    <div class="mb-2">
+      <Input
+        v-model="form.phone"
+        :error="error.phone"
+        :errorMessage="errorMessage.phone"
+        type="number"
+        placeholder="Số điện thoại"
+      >
+        <template #prefix>
+          <PhoneIcon />
+        </template>
+      </Input>
+    </div>
+    <div class="mb-2">
+      <Input
+        v-model="form.password"
+        :error="error.password"
+        :errorMessage="errorMessage.password"
+        type="password"
+        placeholder="Mật khẩu"
+      >
+        <template #prefix>
+          <PasswordIcon />
+        </template>
+      </Input>
+    </div>
     <Input
-      v-model="form.name"
-      :error="error.name"
-      :errorMessage="errorMessage.name"
-      type="text"
-      placeholder="Họ và tên"
-    >
-      <template #prefix>
-        <UserIcon />
-      </template>
-    </Input>
-  </div>
-  <div class="mb-2">
-    <Input
-      v-model="form.address"
-      :error="error.address"
-      :errorMessage="errorMessage.address"
-      type="text"
-      placeholder="Địa chỉ"
-    >
-      <template #prefix><AddressIcon /> </template>
-    </Input>
-  </div>
-  <div class="mb-2">
-    <Input
-      v-model="form.phone"
-      :error="error.phone"
-      :errorMessage="errorMessage.phone"
-      type="number"
-      placeholder="Số điện thoại"
-    >
-      <template #prefix>
-        <PhoneIcon />
-      </template>
-    </Input>
-  </div>
-  <div class="mb-2">
-    <Input
-      v-model="form.password"
-      :error="error.password"
-      :errorMessage="errorMessage.password"
+      v-model="form.confirmPassword"
+      :error="error.confirmPassword"
+      :errorMessage="errorMessage.confirmPassword"
       type="password"
-      placeholder="Mật khẩu"
+      placeholder="Nhập lại mật khẩu"
     >
       <template #prefix>
         <PasswordIcon />
       </template>
     </Input>
-  </div>
-  <Input
-    v-model="form.confirmPassword"
-    :error="error.confirmPassword"
-    :errorMessage="errorMessage.confirmPassword"
-    type="password"
-    placeholder="Nhập lại mật khẩu"
-  >
-    <template #prefix>
-      <PasswordIcon />
-    </template>
-  </Input>
+  </form>
   <div
     @click="signUp"
     class="cursor-pointer bg-primary hover:opacity-80 font-bold text-center text-white py-2 rounded-sm mt-4"

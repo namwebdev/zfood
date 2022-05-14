@@ -37,7 +37,7 @@
                   @click.stop="onClose"
                   class="bg-light-gray rounded-xs px-4 py-2 mr-1"
                 >
-                  Close
+                  Đóng
                 </button>
                 <button
                   @click.stop="onOk"

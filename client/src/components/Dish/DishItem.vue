@@ -55,7 +55,7 @@ function addToCart() {
     emit("onConfirmClearCart", dish.value);
     return;
   }
-  cartStore.add(dish.value, route.params.id);
+  cartStore.add(dish.value);
 }
 </script>
 

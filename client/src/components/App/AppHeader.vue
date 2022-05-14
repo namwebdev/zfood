@@ -27,13 +27,22 @@
             <ProfileIcon />
             <div class="text-primary">{{ userName }}</div>
           </div>
-          <div
-            v-show="show"
-            @click="logout"
-            class="duration-100 absolute cursor-pointer hover:bg-primary hover:text-white top-8 text-primary text-xs w-full text-center py-1 bg-white rounded-xs"
-            style="min-width: 80px;"
-          >
-            Đăng xuất
+          <div v-show="show" class="absolute duration-100">
+            <router-link to="/profile/edit">
+              <div
+                class="cursor-pointer hover:bg-primary hover:text-white top-8 text-primary text-xs w-full text-center py-1 bg-white rounded-xs"
+                style="min-width: 80px"
+              >
+                Hồ sơ
+              </div>
+            </router-link>
+            <div
+              @click="logout"
+              class="cursor-pointer hover:bg-primary hover:text-white top-8 text-primary text-xs w-full text-center py-1 bg-white rounded-xs"
+              style="min-width: 80px"
+            >
+              Đăng xuất
+            </div>
           </div>
         </div>
       </div>
@@ -68,7 +77,7 @@ const userName = computed(() => {
 });
 function logout() {
   auth.logout();
-  cart.clear()
+  cart.clear();
   show.value = false;
 }
 </script>

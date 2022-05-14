@@ -2,30 +2,32 @@
   <div v-show="error.incorrect" class="text-sm text-red-500 text-center mb-4">
     Số điện thoại hoặc mật khẩu không đúng
   </div>
-  <div class="mb-2">
+  <form>
+    <div class="mb-2">
+      <Input
+        v-model="phone"
+        :error="error.phone"
+        :errorMessage="errorMessage.phone"
+        type="number"
+        placeholder="Số điện thoại"
+      >
+        <template #prefix>
+          <PhoneIcon />
+        </template>
+      </Input>
+    </div>
     <Input
-      v-model="phone"
-      :error="error.phone"
-      :errorMessage="errorMessage.phone"
-      type="number"
-      placeholder="Số điện thoại"
+      v-model="password"
+      :error="error.password"
+      :errorMessage="errorMessage.password"
+      type="password"
+      placeholder="Mật khẩu"
     >
       <template #prefix>
-        <PhoneIcon />
+        <PasswordIcon />
       </template>
     </Input>
-  </div>
-  <Input
-    v-model="password"
-    :error="error.password"
-    :errorMessage="errorMessage.password"
-    type="password"
-    placeholder="Mật khẩu"
-  >
-    <template #prefix>
-      <PasswordIcon />
-    </template>
-  </Input>
+  </form>
   <div
     @click="handleLogin"
     class="cursor-pointer bg-primary hover:opacity-80 font-bold text-center text-white py-2 rounded-sm mt-4"
@@ -100,7 +102,6 @@ export default {
           error.incorrect = true;
           error.phone = true;
           error.password = true;
-          console.log(e.response);
           return;
         }
         notify.on({ message: "Xảy ra lỗi" + e });
