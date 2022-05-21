@@ -10,7 +10,7 @@
       <div class="font-bold">{{ restaurant.name }}</div>
       <div class="text-sm">{{ restaurant.address }}</div>
     </div>
-    <div class="px-5 pt-2 text-xxs text-gray">{{ restaurant.category }}</div>
+    <div class="px-5 pt-2 text-xxs text-gray uppercase">{{ restaurant.category }}</div>
   </router-link>
 </template>
 

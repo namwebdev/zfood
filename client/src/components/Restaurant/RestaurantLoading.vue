@@ -1,10 +1,10 @@
 <template>
-  <div class="h-64 animate-pulse">
-    <div class="h-2/3 bg-gray-100 rounded-xl"></div>
+  <div class="h-72 animate-pulse">
+    <div class="h-44 bg-light-gray rounded-xl"></div>
     <!--  -->
-    <div class="flex items-center mt-3">
-      <div class="rounded-circle w-8 h-8 bg-gray-100" />
-      <div class="rounded-sm ml-2 w-32 h-6 bg-gray-100" />
+    <div class="mt-5 mx-2">
+      <div class="rounded-sm w-full h-8 bg-light-gray" />
+      <div class="rounded-sm w-full h-4 mt-3 bg-light-gray" />
     </div>
   </div>
 </template>

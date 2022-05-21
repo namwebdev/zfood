@@ -33,12 +33,9 @@
             {{ $filter.formatCurrency(totalPrice) }}đ
           </div>
         </div>
-        <div
-          @click="visibleOrder = true"
-          class="mt-5 font-bold text-white bg-primary text-center text-lg rounded-sm py-2 cursor-pointer duration-100 hover:opacity-80"
-        >
+        <Button class="w-full mt-3" @click="visibleOrder = true">
           Đặt hàng
-        </div>
+        </Button>
       </div>
     </div>
     <!--  -->
@@ -74,7 +71,12 @@
     </template>
   </AppModal>
   <!--  -->
-  <AppModal v-model:visible="visibleOrder" @onOk="submitOrder">
+  <AppModal
+    v-model:visible="visibleOrder"
+    :closeOnOk="false"
+    :loading="orderLoading"
+    @onOk="submitOrder"
+  >
     <template #title>
       <div class="font-bold text-lg text-primary">Xác nhận đặt hàng</div>
     </template>
@@ -87,6 +89,12 @@
             >{{ $filter.formatCurrency(totalPrice) }}đ</span
           >
         </div>
+      </div>
+    </template>
+    <template #loading>
+      <div class="w-full h-full flex justify-center items-center">
+        <div class="spinner"></div>
+        <span class="text-lg text-primary font-bold">Đang đặt hàng...</span>
       </div>
     </template>
   </AppModal>
@@ -103,19 +111,24 @@ import HomeIcon from "../components/Icons/HomeIcon.vue";
 import SadFaceIcon from "../components/Icons/SadFaceIcon.vue";
 import { useRouter } from "vue-router";
 import orderApi from "../services/factory/order";
+import Button from "../components/Button.vue";
 
 const cartStore = useCartStore();
 const notify = useNotificationStore();
 const { cart } = storeToRefs(cartStore);
 const auth = useAuthStore();
+
 const visible = ref(false);
 const visibleOrder = ref(false);
 const dishForRemove = ref(null);
+const orderLoading = ref(false);
+
 const totalPrice = computed(() => {
   return cart.value.reduce((acc, dish) => {
     return acc + dish.price * dish.quantity;
   }, 0);
 });
+
 const router = useRouter();
 
 const isLogin = computed(() => {
@@ -148,13 +161,18 @@ function submitRemove() {
 }
 async function submitOrder() {
   try {
+    orderLoading.value = true;
     const dishes = cart.value.map((dish) => {
       return {
         dish_id: dish.id,
         quantity: dish.quantity,
       };
     });
-    const data = await orderApi.order(cartStore.restauranId, totalPrice.value, dishes);
+    const data = await orderApi.order(
+      cartStore.restauranId,
+      totalPrice.value,
+      dishes
+    );
     if (data) {
       cartStore.clear();
       notify.on({ type: "success", message: "Đặt hàng thành công" });
@@ -163,6 +181,17 @@ async function submitOrder() {
   } catch (error) {
     if (error.response?.data) return;
     notify.on({ message: "Xảy ra lỗi " + err });
+  } finally {
+    orderLoading.value = false;
   }
 }
 </script>
+
+<style scoped>
+.spinner {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+  background: conic-gradient(#0000 10%, #ee4d2d) !important;
+}
+</style>

@@ -28,12 +28,7 @@
       </template>
     </Input>
   </form>
-  <div
-    @click="handleLogin"
-    class="cursor-pointer bg-primary hover:opacity-80 font-bold text-center text-white py-2 rounded-sm mt-4"
-  >
-    Đăng nhập
-  </div>
+  <Button class="w-full mt-4" :loading="loading" @click="handleLogin"> Đăng nhập </Button>
   <div class="text-sm text-center mt-8">
     Chưa có tài khoản?
     <span @click="changeContent()" class="text-primary">Đăng ký ngay</span>
@@ -51,13 +46,15 @@ import {
   useModalStore,
   useAuthStore,
 } from "../../../stores";
+import Button from "../../Button.vue";
 
 export default {
-  components: { Input, PhoneIcon, PasswordIcon },
+  components: { Input, PhoneIcon, PasswordIcon, Button },
   emits: ["onChangeContent", "onSuccess"],
   setup({ emit }) {
     const phone = ref("");
     const password = ref("");
+    const loading = ref(false);
     const error = reactive({
       phone: false,
       password: false,
@@ -88,6 +85,7 @@ export default {
       }
       if (error.phone || error.password) return;
       try {
+        loading.value = true;
         const { token } = await authApi.login(phone.value, password.value);
         if (token) {
           localStorage.setItem("token", token);
@@ -105,6 +103,8 @@ export default {
           return;
         }
         notify.on({ message: "Xảy ra lỗi" + e });
+      } finally {
+        loading.value = false;
       }
     }
     async function fetchUser() {
@@ -127,6 +127,7 @@ export default {
       password.value = "";
     }
     return {
+      loading,
       error,
       errorMessage,
       changeContent,

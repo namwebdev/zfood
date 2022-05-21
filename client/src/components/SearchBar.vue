@@ -35,6 +35,16 @@ const router = useRouter();
 
 const search = ref("");
 
+init();
+
+function init() {
+  setTimeout(() => {
+    if (route.query.search) {
+      search.value = route.query.search;
+    }
+  }, 500);
+}
+
 function handleSearch() {
   if (search.value) {
     router.push({

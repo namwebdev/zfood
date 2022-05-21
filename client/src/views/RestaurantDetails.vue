@@ -1,28 +1,43 @@
 <template>
   <div class="bg-white py-14 mt-16">
-    <AppContainer :hasMargin="false" class="flex">
-      <div class="w-100">
-        <img class="w-full rounded-xs" :src="restaurant.image" alt="" />
+    <AppContainer :hasMargin="false">
+      <div v-if="loading" class="animate-pulse flex items-center">
+        <div class="w-100 h-72 bg-light-gray rounded-xl"></div>
+        <div class="ml-20">
+          <div class="w-60 h-8 bg-light-gray rounded-sm"></div>
+          <div class="w-72 h-6 mt-4 bg-light-gray rounded-sm"></div>
+        </div>
       </div>
       <!--  -->
-      <div class="ml-16 my-auto">
-        <div class="border-b border-light-gray pb-5 mb-2">
-          <div class="text-xl font-bold">{{ restaurant.name }}</div>
-          <div>{{ restaurant.address }}</div>
+      <div v-else class="flex">
+        <div class="w-100">
+          <img class="w-full rounded-xs" :src="restaurant.image" alt="" />
         </div>
-        <div class="text-xxs text-gray">{{ restaurant.category }}</div>
+
+        <div class="ml-16 my-auto">
+          <div class="border-b border-light-gray pb-5 mb-2">
+            <div class="text-xl font-bold">{{ restaurant.name }}</div>
+            <div>{{ restaurant.address }}</div>
+          </div>
+          <div class="text-xxs text-gray uppercase">{{ restaurant.category }}</div>
+        </div>
       </div>
     </AppContainer>
   </div>
   <!--  -->
   <div class="w-110 mt-16 mx-auto bg-white px-10 py-8 rounded-xs">
-    <DishItem
-      @onNeedLogin="visible = true"
-      @onConfirmClearCart="confirmClearCart"
-      v-for="dish in dishes"
-      :key="dish.id"
-      :dish="dish"
-    />
+    <div v-if="loading">
+      <DishLoading v-for="i in 5" :key="i" />
+    </div>
+    <div v-else>
+      <DishItem
+        @onNeedLogin="visible = true"
+        @onConfirmClearCart="confirmClearCart"
+        v-for="dish in dishes"
+        :key="dish.id"
+        :dish="dish"
+      />
+    </div>
   </div>
   <AppModal
     v-model:visible="visible"
@@ -66,6 +81,7 @@ import dishesApi from "../services/factory/dishes";
 import AppContainer from "../components/App/AppContainer.vue";
 import DishItem from "../components/Dish/DishItem.vue";
 import AppModal from "../components/App/AppModal.vue";
+import DishLoading from "../components/Dish/DishLoading.vue";
 import { useCartStore, useModalStore } from "../stores/";
 
 const modal = useModalStore();
@@ -80,14 +96,15 @@ const dishes = ref([]);
 const route = useRoute();
 const id = route.params.id;
 
-fetchDetails();
-fetchDishes();
+(async () => {
+  loading.value = true;
+  await Promise.all([fetchDetails(), fetchDishes()]);
+  loading.value = false;
+})();
 
 async function fetchDetails() {
-  loading.value = true;
   const { data } = await restaurantsApi.getDetails(id);
   restaurant.value = data;
-  loading.value = false;
 }
 
 async function fetchDishes() {

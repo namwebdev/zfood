@@ -5,7 +5,8 @@
     class="text-center text-white bg-primary border px-4 py-2 rounded-sm hover:text-primary hover:bg-white hover:border-primary duration-100"
     :class="{ 'disabled opacity-60 hover': loading }"
   >
-    <slot />
+    <div v-show="loading" class="spinner"></div>
+    <div v-show="!loading"><slot /></div>
   </button>
 </template>
 
@@ -29,6 +30,11 @@ function onClick(e) {
 
 <style lang="css" scoped>
 button.disabled:hover {
-  @apply text-white bg-primary border-white cursor-wait
+  @apply text-white bg-primary border-white cursor-wait;
+}
+.spinner {
+  width: 20px;
+  height: 20px;
+  margin: 0 auto;
 }
 </style>

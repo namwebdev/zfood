@@ -7,8 +7,14 @@
         :restaurant="restaurant"
       />
     </div>
-    <div v-if="loading" class="list-shot">
+    <div v-if="loading" class="list-restaurant mb-10">
       <RestaurantLoading v-for="(res, index) in 4" :key="index" />
+    </div>
+    <div
+      v-if="restaurants.length === 0 && !loading"
+      class="text-center text-primary text-xl font-bold w-full mt-5 mb-28"
+    >
+      Không có quán nào
     </div>
   </AppContainer>
 </template>

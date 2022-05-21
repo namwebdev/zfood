@@ -21,10 +21,16 @@
           <div
             id="modal"
             data-test="modal"
-            class="bg-white text-black rounded-sm shadow-sm h-auto px-8 pt-4 pb-6 w-100"
+            class="bg-white text-black rounded-sm shadow-sm h-auto px-8 pt-4 pb-6 w-100 relative"
             :class="className"
             @click.stop=""
           >
+            <div v-show="loading" class="absolute inset-0">
+              <div class="w-full h-full opacity-90 bg-light-gray"></div>
+              <div class="absolute w-full h-full inset-0">
+                <slot name="loading" />
+              </div>
+            </div>
             <slot name="title">
               <div data-test="modal-title" class="font-bold text-xl">Title</div>
             </slot>
@@ -79,6 +85,14 @@ export default {
       type: Boolean,
       default: () => true,
     },
+    loading: {
+      type: Boolean,
+      default: () => false,
+    },
+    closeOnOk: {
+      type: Boolean,
+      default: () => true,
+    },
   },
   emits: ["update:visible", "onOk", "hide"],
   setup(props, { emit }) {
@@ -91,7 +105,7 @@ export default {
 
     function onOk() {
       emit("onOk");
-      onClose();
+      if (props.closeOnOk) onClose();
     }
     function onClose() {
       emit("update:visible", false);
@@ -107,3 +121,6 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+</style>
