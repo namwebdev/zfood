@@ -1,41 +1,45 @@
 <template>
   <ProfileLayout>
-    <div class="border-b border-light-gray pb-2">
-      <div class="text-xl">Hồ sơ</div>
-      <div class="text-gray">Quản lý thông tin hồ sơ để bảo mật tài khoản</div>
-    </div>
-    <form class="flex flex-wrap justify-between mt-6">
-      <div class="form-item">
-        <div class="label">Họ và tên</div>
-        <Input
-          class="input"
-          v-model="info.name"
-          :error="error.name"
-          :errorMessage="errorMessage.name"
-        />
+    <div class="bg-white ml-8 rounded-xs px-10 py-6 w-full">
+      <div class="border-b border-light-gray pb-2">
+        <div class="text-xl">Hồ sơ</div>
+        <div class="text-gray">
+          Quản lý thông tin hồ sơ để bảo mật tài khoản
+        </div>
       </div>
-      <div class="form-item">
-        <div class="label">Số điện thoại</div>
-        <Input
-        type="number"
-          class="input"
-          v-model="info.phone"
-          :error="error.phone"
-          :errorMessage="errorMessage.phone"
-        />
+      <form class="flex flex-wrap justify-between mt-6">
+        <div class="form-item">
+          <div class="label">Họ và tên</div>
+          <Input
+            class="input"
+            v-model="info.name"
+            :error="error.name"
+            :errorMessage="errorMessage.name"
+          />
+        </div>
+        <div class="form-item">
+          <div class="label">Số điện thoại</div>
+          <Input
+            type="number"
+            class="input"
+            v-model="info.phone"
+            :error="error.phone"
+            :errorMessage="errorMessage.phone"
+          />
+        </div>
+        <div class="form-item">
+          <div class="label">Địa chỉ</div>
+          <Input
+            class="input"
+            v-model="info.address"
+            :error="error.address"
+            :errorMessage="errorMessage.address"
+          />
+        </div>
+      </form>
+      <div class="text-right">
+        <Button @click="updateInfo"> Cập nhật </Button>
       </div>
-      <div class="form-item">
-        <div class="label">Địa chỉ</div>
-        <Input
-          class="input"
-          v-model="info.address"
-          :error="error.address"
-          :errorMessage="errorMessage.address"
-        />
-      </div>
-    </form>
-    <div class="text-right">
-      <Button @click="updateInfo"> Cập nhật </Button>
     </div>
   </ProfileLayout>
 </template>

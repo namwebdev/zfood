@@ -56,7 +56,9 @@
     </div>
   </AppContainer>
   <AppContainer v-else>
-    <div class="text-center py-20 text-xl text-primary font-bold">Bạn cần đăng nhập trước khi truy cập vào trang này</div>
+    <div class="text-center py-20 text-xl text-primary font-bold">
+      Bạn cần đăng nhập trước khi truy cập vào trang này
+    </div>
   </AppContainer>
   <!--  -->
   <AppModal
@@ -146,7 +148,13 @@ function submitRemove() {
 }
 async function submitOrder() {
   try {
-    const data = await orderApi.order(cartStore.restauranId, totalPrice.value);
+    const dishes = cart.value.map((dish) => {
+      return {
+        dish_id: dish.id,
+        quantity: dish.quantity,
+      };
+    });
+    const data = await orderApi.order(cartStore.restauranId, totalPrice.value, dishes);
     if (data) {
       cartStore.clear();
       notify.on({ type: "success", message: "Đặt hàng thành công" });

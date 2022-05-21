@@ -2,10 +2,15 @@
   <header
     class="h-16 bg-white z-10 shadow-sm fixed inset-0 w-full flex justify-between items-center px-20"
   >
-    <router-link to="/" class="hover:opacity-75">
-      <img src="../../assets/logo.png" alt="" />
-    </router-link>
-    <div>
+    <div id="logo">
+      <router-link to="/" class="w-52 hover:opacity-75">
+        <img src="../../assets/logo.png" alt="" />
+      </router-link>
+    </div>
+    <div class="w-full flex justify-center items-center">
+      <SearchBar />
+    </div>
+    <div class="w-52">
       <div v-if="auth.isLogin" class="flex items-center justify-between w-52">
         <router-link to="/order" class="relative">
           <CartIcon class="cart" />
@@ -50,7 +55,7 @@
       <div
         v-else
         @click="modal.openLogin"
-        class="border px-3 py-2 rounded-sm border-primary text-primary cursor-pointer hover:bg-primary hover:text-white duration-100"
+        class="border px-3 py-2 text-center w-28 ml-auto rounded-sm border-primary text-primary cursor-pointer hover:bg-primary hover:text-white duration-100"
       >
         Đăng nhập
       </div>
@@ -63,6 +68,7 @@ import { computed, ref } from "@vue/runtime-core";
 import { useModalStore, useAuthStore, useCartStore } from "../../stores";
 import CartIcon from "../Icons/CartIcon.vue";
 import ProfileIcon from "../Icons/ProfileIcon.vue";
+import SearchBar from "../SearchBar.vue";
 
 const modal = useModalStore();
 const auth = useAuthStore();
@@ -83,6 +89,9 @@ function logout() {
 </script>
 
 <style lang="css" scoped>
+#logo {
+  min-width: 208px;
+}
 svg {
   @apply text-primary;
 }

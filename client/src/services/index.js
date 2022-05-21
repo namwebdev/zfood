@@ -2,7 +2,7 @@ import axios from "axios";
 import queryString from "query-string";
 
 const axiosClient = axios.create({
-  baseURL: "http://localhost:5000/v1",
+  baseURL: "https://zynky-zfood-api.herokuapp.com/v1",
   headers: {
     "content-type": "application/json",
   },
@@ -21,7 +21,10 @@ axiosClient.interceptors.response.use(
     return response;
   },
   (error) => {
-    if (error?.response?.status === 401) localStorage.removeItem("token");
+    if (error?.response?.status === 401) {
+      localStorage.removeItem("token");
+      localStorage.removeItem("cart");
+    }
     throw error;
   }
 );

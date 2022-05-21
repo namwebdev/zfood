@@ -6,7 +6,9 @@ export const useCartStore = defineStore({
     cart: localStorage.getItem("cart")
       ? JSON.parse(localStorage.getItem("cart"))
       : [],
-    restauranId: null,
+    restauranId: localStorage.getItem("cart")
+      ? JSON.parse(localStorage.getItem("cart"))[0]?.restaurant_id
+      : null,
   }),
   getters: {},
   actions: {

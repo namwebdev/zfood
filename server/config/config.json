@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "root",
-    "password": "123456",
-    "database": "zfood_db",
-    "host": "localhost",
+    "username": "nchpjlkr08cu4cl3",
+    "password": "wtmjnzcsf7pj26ug",
+    "database": "g7n10n7pbh7pwgxs",
+    "host": "dcrhg4kh56j13bnu.cbetxkdyhwsb.us-east-1.rds.amazonaws.com",
     "dialect": "mysql",
     "dialectOptions": {
       "ssl": {

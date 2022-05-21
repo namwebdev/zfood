@@ -1,7 +1,7 @@
 <template>
   <AppContainer v-if="auth.isLogin" class="flex">
     <ProfileSideMenu />
-    <div class="ml-8 bg-white rounded-xs px-10 py-6 w-full"><slot /></div>
+    <slot />
   </AppContainer>
   <Unauthorized v-else />
 </template>

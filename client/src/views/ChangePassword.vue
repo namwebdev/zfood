@@ -1,49 +1,51 @@
 <template>
   <ProfileLayout>
-    <div class="border-b border-light-gray pb-2">
-      <div class="text-xl">Đổi mật khẩu</div>
-      <div class="text-gray">
-        Để bảo mật tài khoản, vui lòng không chia sẻ mật khẩu cho người khác
-      </div>
-    </div>
-    <form class="mt-6 w-100 mx-auto">
-      <div class="form-item">
-        <div class="label">Mật khẩu hiện tại</div>
-        <Input
-          type="password"
-          class="input"
-          v-model="form.password"
-          :error="error.password"
-          :errorMessage="errorMessage.password"
-        />
-      </div>
-      <div class="form-item">
-        <div class="label">Mật khẩu mới</div>
-        <Input
-          type="password"
-          class="input"
-          v-model="form.new_password"
-          :error="error.new_password"
-          :errorMessage="errorMessage.new_password"
-        />
-      </div>
-      <div class="form-item">
-        <div class="label">Xác nhận mật khẩu</div>
-        <Input
-          type="password"
-          class="input"
-          v-model="form.confirm_password"
-          :error="error.confirm_password"
-          :errorMessage="errorMessage.confirm_password"
-        />
-      </div>
-      <div class="form-item">
-        <div class="label"></div>
-        <div class="input">
-          <Button @click="changePassword"> Đổi mật khẩu </Button>
+    <div class="bg-white ml-8 rounded-xs px-10 py-6 w-full">
+      <div class="border-b border-light-gray pb-2">
+        <div class="text-xl">Đổi mật khẩu</div>
+        <div class="text-gray">
+          Để bảo mật tài khoản, vui lòng không chia sẻ mật khẩu cho người khác
         </div>
       </div>
-    </form>
+      <form class="mt-6 w-100 mx-auto">
+        <div class="form-item">
+          <div class="label">Mật khẩu hiện tại</div>
+          <Input
+            type="password"
+            class="input"
+            v-model="form.password"
+            :error="error.password"
+            :errorMessage="errorMessage.password"
+          />
+        </div>
+        <div class="form-item">
+          <div class="label">Mật khẩu mới</div>
+          <Input
+            type="password"
+            class="input"
+            v-model="form.new_password"
+            :error="error.new_password"
+            :errorMessage="errorMessage.new_password"
+          />
+        </div>
+        <div class="form-item">
+          <div class="label">Xác nhận mật khẩu</div>
+          <Input
+            type="password"
+            class="input"
+            v-model="form.confirm_password"
+            :error="error.confirm_password"
+            :errorMessage="errorMessage.confirm_password"
+          />
+        </div>
+        <div class="form-item">
+          <div class="label"></div>
+          <div class="input">
+            <Button @click="changePassword"> Đổi mật khẩu </Button>
+          </div>
+        </div>
+      </form>
+    </div>
   </ProfileLayout>
 </template>
 

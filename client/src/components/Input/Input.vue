@@ -1,7 +1,7 @@
 <template>
   <div>
     <div
-      class="border border-light-gray py-2 px-3 w-full rounded-sm shadow-sm font-thin duration-100 shadow-gray-100 hover:shadow-lg flex justify-center items-center"
+      class="input border border-light-gray py-2 px-3 w-full rounded-sm shadow-sm font-thin duration-100 shadow-gray-100 hover:shadow-lg flex justify-center items-center"
       :class="{
         'border-red-500': error,
         'outline outline-0 shadow-lg border-primary-700': isFocus,

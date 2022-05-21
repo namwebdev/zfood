@@ -3,7 +3,7 @@ const { restaurant } = require("../models");
 const getRestaurants = async (req, res) => {
   const { name } = req.query;
   try {
-    const restaurants = await restaurant.findAll();
+    const restaurants = await restaurant.findAll({ order: [["id", "desc"]] });
     res.status(200).json({
       data: restaurants,
     });
