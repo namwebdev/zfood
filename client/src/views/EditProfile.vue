@@ -38,7 +38,7 @@
         </div>
       </form>
       <div class="text-right">
-        <Button @click="updateInfo"> Cập nhật </Button>
+        <Button :loading="loading" @click="updateInfo"> Cập nhật </Button>
       </div>
     </div>
   </ProfileLayout>
@@ -51,13 +51,16 @@ import { useAuthStore, useNotificationStore } from "../stores";
 import { computed, reactive } from "@vue/runtime-core";
 import Button from "../components/Button.vue";
 import userApi from "../services/factory/user.js";
+import { ref } from "vue";
 
 const auth = useAuthStore();
 const notify = useNotificationStore();
 
-const userName = computed(() => auth.user.name);
-const phone = computed(() => auth.user.phone);
-const address = computed(() => auth.user.address);
+const userName = computed(() => auth?.user?.name);
+const phone = computed(() => auth?.user?.phone);
+const address = computed(() => auth?.user?.address);
+
+const loading = ref(false);
 
 const info = reactive({
   name: "",
@@ -78,15 +81,24 @@ const errorMessage = reactive({
 init();
 
 function init() {
-  info.name = userName.value;
-  info.phone = phone.value;
-  info.address = address.value;
+  if (auth.user) {
+    info.name = auth.user.name;
+    info.phone = auth.user.phone;
+    info.address = auth.user.address;
+    return;
+  }
+  setTimeout(() => {
+    info.name = auth.user.name;
+    info.phone = phone.value;
+    info.address = address.value;
+  }, 500);
 }
 
 async function updateInfo() {
   const checkValid = isValid();
   if (!checkValid) return;
   try {
+    loading.value = true;
     const res = await userApi.updateInfo(info);
     if (res) {
       notify.on({ type: "success", message: "Cập nhật thành công" });
@@ -94,6 +106,8 @@ async function updateInfo() {
     }
   } catch (e) {
     notify.on({ message: e });
+  } finally {
+    loading.value = false;
   }
 }
 function isValid() {

@@ -41,7 +41,7 @@
         <div class="form-item">
           <div class="label"></div>
           <div class="input">
-            <Button @click="changePassword"> Đổi mật khẩu </Button>
+            <Button :loading="loading" @click="changePassword"> Đổi mật khẩu </Button>
           </div>
         </div>
       </form>
@@ -56,6 +56,7 @@ import { useAuthStore, useNotificationStore } from "../stores";
 import { computed, reactive } from "@vue/runtime-core";
 import Button from "../components/Button.vue";
 import userApi from "../services/factory/user.js";
+import { ref } from "vue";
 
 const auth = useAuthStore();
 const notify = useNotificationStore();
@@ -76,10 +77,13 @@ const errorMessage = reactive({
   confirm_password: "",
 });
 
+const loading = ref(false);
+
 async function changePassword() {
   const checkValid = isValid();
   if (!checkValid) return;
   try {
+    loading.value = true;
     const { confirm_password, ...formData } = form;
     const res = await userApi.changePassword(formData);
     if (res) {
@@ -101,6 +105,8 @@ async function changePassword() {
       }
     }
     notify.on({ message: e });
+  } finally {
+    loading.value = false;
   }
 }
 function isValid() {

@@ -4,6 +4,7 @@
     :disabled="loading"
     class="text-center text-white bg-primary border px-4 py-2 rounded-sm hover:text-primary hover:bg-white hover:border-primary duration-100"
     :class="{ 'disabled opacity-60 hover': loading }"
+    style="min-width: 96px"
   >
     <div v-show="loading" class="spinner"></div>
     <div v-show="!loading"><slot /></div>

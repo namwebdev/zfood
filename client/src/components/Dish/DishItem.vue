@@ -23,7 +23,7 @@
 </template>
 
 <script setup>
-import { computed, defineProps, toRefs, defineEmits } from "vue";
+import { computed,  toRefs, defineEmits } from "vue";
 import AddToCartIcon from "../Icons/AddToCartIcon.vue";
 import InCartIcon from "../Icons/InCartIcon.vue";
 import { useCartStore, useAuthStore } from "../../stores/";
