@@ -55,7 +55,7 @@ async function init() {
     if (e.response.status === 401) return;
     console.error("fetchUserData ", e);
   } finally {
-    loading.value, false;
+    loading.value = false;
   }
 }
 </script>
