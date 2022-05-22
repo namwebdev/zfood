@@ -91,7 +91,7 @@ function init() {
     info.name = auth.user.name;
     info.phone = phone.value;
     info.address = address.value;
-  }, 500);
+  }, 1000);
 }
 
 async function updateInfo() {
