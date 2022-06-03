@@ -81,17 +81,17 @@ const errorMessage = reactive({
 init();
 
 function init() {
-  if (auth.user) {
+  const setInfo = () => {
     info.name = auth.user.name;
     info.phone = auth.user.phone;
     info.address = auth.user.address;
+  };
+
+  if (auth.user) {
+    setInfo();
     return;
   }
-  setTimeout(() => {
-    info.name = auth.user.name;
-    info.phone = phone.value;
-    info.address = address.value;
-  }, 1000);
+  setTimeout(() => setInfo(), 1000);
 }
 
 async function updateInfo() {

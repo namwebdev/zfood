@@ -19,7 +19,9 @@
             <div class="text-xl font-bold">{{ restaurant.name }}</div>
             <div>{{ restaurant.address }}</div>
           </div>
-          <div class="text-xxs text-gray uppercase">{{ restaurant.category }}</div>
+          <div class="text-xxs text-gray uppercase">
+            {{ restaurant.category }}
+          </div>
         </div>
       </div>
     </AppContainer>
@@ -74,7 +76,7 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, watch } from "vue";
 import { useRoute } from "vue-router";
 import restaurantsApi from "../services/factory/restaurants";
 import dishesApi from "../services/factory/dishes";
@@ -82,11 +84,12 @@ import AppContainer from "../components/App/AppContainer.vue";
 import DishItem from "../components/Dish/DishItem.vue";
 import AppModal from "../components/App/AppModal.vue";
 import DishLoading from "../components/Dish/DishLoading.vue";
-import { useCartStore, useModalStore } from "../stores/";
+import { useCartStore, useModalStore, useRestaurantsStore } from "../stores/";
 
 const modal = useModalStore();
 const visible = ref(false);
 const visibleClearCart = ref(false);
+const restaurantStore = useRestaurantsStore();
 
 const cart = useCartStore();
 const newDishToAdd = ref(null);
@@ -94,20 +97,40 @@ const loading = ref(false);
 const restaurant = ref({});
 const dishes = ref([]);
 const route = useRoute();
-const id = route.params.id;
 
-(async () => {
+watch(
+  () => route.params.id,
+  () => {
+    (async () => {
+      if (route.name === "restaurant-details") {
+        await init();
+      }
+    })();
+  }
+);
+
+init();
+
+async function init() {
   loading.value = true;
   await Promise.all([fetchDetails(), fetchDishes()]);
   loading.value = false;
-})();
+}
 
 async function fetchDetails() {
+  const id = route.params.id;
+  if (restaurantStore.restaurants.length > 0) {
+    restaurant.value = restaurantStore.restaurants.find(
+      (restaurant) => restaurant.id === Number(id)
+    );
+    return;
+  }
   const { data } = await restaurantsApi.getDetails(id);
   restaurant.value = data;
 }
 
 async function fetchDishes() {
+  const id = route.params.id;
   const { data } = await dishesApi.getByRestaurant(id);
   dishes.value = data;
 }

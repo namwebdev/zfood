@@ -1,4 +1,23 @@
+import { isArray } from "@vue/shared";
 import { defineStore } from "pinia";
+import restaurantsApi from "../services/factory/restaurants";
+
+export const useRestaurantsStore = defineStore({
+  id: "restaurants",
+  state: () => ({
+    restaurants: [],
+  }),
+  actions: {
+    async fetch() {
+      try {
+        const { data } = await restaurantsApi.get();
+        if (isArray(data) && data.length > 0) this.restaurants = data;
+      } catch (e) {
+        console.error(e);
+      }
+    },
+  },
+});
 
 export const useCartStore = defineStore({
   id: "cart",

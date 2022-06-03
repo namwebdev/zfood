@@ -15,7 +15,8 @@
     "pinia": "^2.0.13",
     "query-string": "^7.1.1",
     "vue": "^3.2.33",
-    "vue-router": "^4.0.14"
+    "vue-router": "^4.0.14",
+    "vue3-perfect-scrollbar": "^1.6.0"
   },
   "devDependencies": {
     "@rushstack/eslint-patch": "^1.1.0",
