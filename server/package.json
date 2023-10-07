@@ -14,8 +14,6 @@
     "multer": "^1.4.2",
     "mysql2": "^2.2.5",
     "node-cron": "^3.0.0",
-    "pg": "^8.7.1",
-    "pg-hstore": "^2.3.4",
     "puppeteer": "^13.7.0",
     "request": "^2.88.2",
     "sequelize": "^6.6.2"
@@ -25,7 +23,8 @@
     "sequelize-cli": "^6.2.0"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "db:init": "sequelize init",
+    "db:migrate": "sequelize-cli db:create && sequelize-cli db:migrate",
     "dev": "nodemon main.js",
     "start": "node main.js"
   },
