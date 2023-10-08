@@ -1,8 +1,11 @@
 import axios from "axios";
 import queryString from "query-string";
 
+const API_URL = import.meta.env.VITE_API_URL;
+const baseURL = `${API_URL}/v1`
+
 const axiosClient = axios.create({
-  baseURL: "https://zynky-zfood-api.herokuapp.com/v1",
+  baseURL,
   headers: {
     "content-type": "application/json",
   },
