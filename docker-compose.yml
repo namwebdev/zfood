@@ -1,0 +1,54 @@
+version: '3'
+
+services:
+  # MySQL Database
+  database:
+    image: mysql:5.7
+    container_name: database
+    restart: always
+    env_file: ./.env
+    environment:
+      - MYSQL_ROOT_PASSWORD=$MYSQLDB_ROOT_PASSWORD
+      - MYSQL_DATABASE=$MYSQLDB_DATABASE
+    ports:
+      - $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
+    volumes:
+      - db:/var/lib/mysql
+
+  # Node.js App
+  api:
+    build:
+      context: ./server
+    restart: unless-stopped
+    container_name: api
+    hostname: node-api
+    depends_on:
+      - database
+    environment:
+      - DB_HOST=database
+      - DB_USER=$MYSQLDB_USER
+      - DB_PASSWORD=$MYSQLDB_ROOT_PASSWORD
+      - DB_NAME=$MYSQLDB_DATABASE
+      - DB_PORT=$MYSQLDB_DOCKER_PORT
+    env_file: ./.env
+    ports:
+      - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
+
+  # Vue.js App
+  client:
+    build:
+      context: ./client
+    container_name: client
+    depends_on:
+      - api
+    env_file: ./.env
+    environment:
+      - VITE_API_URL=node-api
+      - VITE_API_PORT=$NODE_LOCAL_PORT
+      - VITE_APP_PORT=$VITE_APP_DOCKER_PORT
+    ports:
+      - $VITE_APP_PORT:$VITE_APP_DOCKER_PORT
+
+volumes:
+  db:
+

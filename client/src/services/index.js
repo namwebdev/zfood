@@ -1,8 +1,8 @@
 import axios from "axios";
 import queryString from "query-string";
 
-const API_URL = import.meta.env.VITE_API_URL;
-const baseURL = `${API_URL}/v1`
+const API_URL = "/__api"
+const baseURL = API_URL + "/v1"
 
 const axiosClient = axios.create({
   baseURL,
