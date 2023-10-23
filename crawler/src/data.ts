@@ -1,0 +1,35 @@
+export const ListRestaurantAPI = {
+  url: "https://gappapi.deliverynow.vn/api/delivery/get_infos",
+  options: {
+    headers: {
+      "247c989d": "o=i+eeZp:+,=Xs:2.=-A4fk)C",
+      "3b37f72d":
+        "SeL'hKZu);(sOX$H()Vo4q1i=BFQqG%Q4H\"]TpJf7_$uhDa@Ol3B$=DE(h97bRO?[h6a0)aD/LOlO&Z6LlT4BMXXF&R*o'(7$[EU(jp_3NdTq*O>ag#.QT8O[YaTHi72!!MG0N58,eT@m9[WkC[G:q<88VP!D&ImZ15B7n^df9&+pJ!W/8!2qRIOGfVCKH4A%4(!s4*<Ia&Rdj#f/K",
+      "8424fa96": "*<]CB[-`EMa%%rsF;X2c*%`:%",
+      accept: "application/json, text/plain, */*",
+      "accept-language": "en-US,en;q=0.9",
+      ba7bba71: '01H([3ACiaLP#?L"0JlCXqHpH',
+      "content-type": "application/json;charset=UTF-8",
+      "sec-ch-ua":
+        '"Chromium";v="118", "Microsoft Edge";v="118", "Not=A?Brand";v="99"',
+      "sec-ch-ua-mobile": "?0",
+      "sec-ch-ua-platform": '"Windows"',
+      "sec-fetch-dest": "empty",
+      "sec-fetch-mode": "cors",
+      "sec-fetch-site": "cross-site",
+      "x-foody-access-token": "",
+      "x-foody-api-version": "1",
+      "x-foody-app-type": "1004",
+      "x-foody-client-id": "",
+      "x-foody-client-language": "vi",
+      "x-foody-client-type": "1",
+      "x-foody-client-version": "3.0.0",
+      "x-sap-ri": "6c2a3165dcac7136d0d66c39722500322a7b3ed50fb60a41",
+    },
+    referrer: "https://shopeefood.vn/",
+    referrerPolicy: "strict-origin-when-cross-origin",
+    method: "POST",
+    mode: "cors",
+    credentials: "omit",
+  },
+};

@@ -1,0 +1,90 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int     @id @default(autoincrement())
+  phone    String  @unique
+  name     String
+  password String
+  address  String?
+  avatar   String?
+
+  orders Order[]
+
+  @@map("users")
+}
+
+model Restaurant {
+  id      Int    @id @default(autoincrement())
+  name    String @unique
+  image   String
+  address String
+
+  in_platform_id      Int @unique
+  in_platform_id_type Int
+
+  category    Category? @relation(fields: [category_id], references: [id])
+  category_id Int?
+
+  orders Order[]
+  dishes Dish[]
+
+  @@map("restaurants")
+}
+
+model Category {
+  id   Int    @id @default(autoincrement())
+  name String @unique
+
+  restaurants Restaurant[]
+
+  @@map("categories")
+}
+
+model Order {
+  id          Int @id @default(autoincrement())
+  total_price Int
+
+  orderer User? @relation(fields: [user_id], references: [id])
+  user_id Int
+
+  restaurant    Restaurant @relation(fields: [restaurant_id], references: [id])
+  restaurant_id Int
+
+  dish_orders Dish_Order[]
+
+  @@map("orders")
+}
+
+model Dish {
+  id    Int    @id @default(autoincrement())
+  name  String
+  image String @unique
+  price Int
+
+  restaurant    Restaurant @relation(fields: [restaurant_id], references: [id])
+  restaurant_id Int
+
+  dish_orders Dish_Order[]
+
+  @@map("dishes")
+}
+
+model Dish_Order {
+  id       Int @id @default(autoincrement())
+  quantity Int
+
+  dish    Dish @relation(fields: [dish_id], references: [id])
+  dish_id Int
+
+  order    Order @relation(fields: [order_id], references: [id])
+  order_id Int
+
+  @@map("dish_orders")
+}

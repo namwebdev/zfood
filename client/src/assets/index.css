@@ -1,0 +1,24 @@
+@import "./transitions.css";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* loading directive */
+.spinner {
+  width: 20px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 3px solid;
+  border-color: #4d1eb8 #0000;
+  animation: spinner 1s infinite;
+}
+@keyframes spinner {
+  to {
+    transform: rotate(0.5turn);
+  }
+}
+/* ----- */
+
+.overlay {
+  @apply fixed z-10 inset-0 overflow-hidden bg-black bg-opacity-50;
+}
