@@ -1,5 +1,5 @@
-resource "aws_security_group" "example" {
-  name        = "example-security-group"
+resource "aws_security_group" "sc_group" {
+  name        = var.app_security_group_name
   description = "Example security group"
 
     ingress {
@@ -40,7 +40,7 @@ resource "aws_instance" "dev_node" {
   ami                    = data.aws_ami.server_ami.id
   instance_type          = "t2.micro"
   key_name               = aws_key_pair.mtc_auth.id
-  vpc_security_group_ids = [aws_security_group.example.id]
+  vpc_security_group_ids = [aws_security_group.sc_group.id]
 
   user_data = file("userdata.tpl")
 

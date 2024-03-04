@@ -7,7 +7,7 @@ terraform {
 }
 
 provider "aws" {
-  region                   = "ap-southeast-1"
+  region                   = var.app_region
   shared_credentials_files = ["~/.aws/credentials"]
-  profile                  = "zynmul"
+  profile                  = var.app_aws_profile_name
 }
